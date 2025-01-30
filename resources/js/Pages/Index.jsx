@@ -9,7 +9,9 @@ export default function Index({ posts }) {
     return (
         <>
             <Head title="Posts" />
-            <div className="container mx-auto p-4">
+            <div className="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
+                <div className="absolute w-full bg-blue-500 dark:hidden min-h-75 h-20"></div>
+
                 <h1 className="text-2xl font-bold mb-4 text-green-500">
                     Test Post
                 </h1>
