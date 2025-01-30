@@ -22,6 +22,6 @@ Route::get('/profile', function () {
 
 Route::resource('/post', PostController::class);
 // Route::resource('/role', RoleController::class);
-Route::get('/role', function() {
-    return Inertia::render('Role/RoleList');
-})->name('role');
+
+Route::resource('/role', RoleController::class);
+

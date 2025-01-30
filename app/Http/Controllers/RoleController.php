@@ -13,7 +13,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return Inertia::render('RoleList', [
+        return Inertia::render('Role/RoleList', [
             'roles' => Roles::all(),
         ]);
     }
