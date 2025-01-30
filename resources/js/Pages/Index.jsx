@@ -15,6 +15,7 @@ export default function Index({ posts }) {
                 <h1 className="text-2xl font-bold mb-4 text-green-500">
                     Test Post
                 </h1>
+
                 <hr className="mb-4" />
                 {posts &&
                     posts.map((item) => (

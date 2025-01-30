@@ -84,7 +84,9 @@ export default function Sidebar({ show }) {
                                             className="h-3 w-5"
                                         />
                                     </ListItemPrefix>
-                                    Analytics
+                                    <Link href="/praktikum">
+                                        Kategori Praktikum
+                                    </Link>
                                 </ListItem>
                                 <ListItem>
                                     <ListItemPrefix>
