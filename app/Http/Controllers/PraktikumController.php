@@ -24,6 +24,7 @@ class PraktikumController extends Controller
     public function create()
     {
         return Inertia::render('Praktikum/PraktikumCreate');
+        
     }
 
     /**
@@ -32,9 +33,10 @@ class PraktikumController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:praktikums',
             'periode' => 'required|string|max:255',
-            'tahun' => 'required|string|max:4',
+            'tahun' => 'required|integer|min:1900|max:' . date('Y'),
+            'kelas' => 'required|string|max:50',
             'status' => 'required|boolean',
         ]);
 
@@ -69,9 +71,10 @@ class PraktikumController extends Controller
     public function update(Request $request, Praktikum $praktikum)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:praktikums,name,' . $praktikum->id,
             'periode' => 'required|string|max:255',
-            'tahun' => 'required|string|max:4',
+            'tahun' => 'required|integer|min:1900|max:' . date('Y'),
+            'kelas' => 'required|string|max:50',
             'status' => 'required|boolean',
         ]);
 
