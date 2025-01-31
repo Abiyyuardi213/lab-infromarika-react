@@ -22,19 +22,19 @@ export default function RoleList({ roles, filters }) {
     const handleSearch = (e) => {
         setSearchQuery(e.target.value);
         router.get(
-            "/roles",
+            "/role",
             { search: e.target.value },
             { preserveState: true, preserveScroll: true }
         );
     };
 
     const handleEdit = (role) => {
-        router.get(`/roles/${role.id}/edit`);
+        router.get(`/role/${role.id}/edit`);
     };
 
     const handleDelete = (role) => {
         if (confirm("Are you sure you want to delete this role?")) {
-            router.delete(`/roles/${role.id}`);
+            router.delete(`/role/${role.id}`);
         }
     };
 

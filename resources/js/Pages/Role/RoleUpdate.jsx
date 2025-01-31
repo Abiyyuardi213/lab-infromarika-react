@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { router, Head } from "@inertiajs/react";
+import { router, Head, usePage } from "@inertiajs/react";
 import {
     Card,
     CardBody,
@@ -12,10 +12,11 @@ import {
     Option,
 } from "@material-tailwind/react";
 
-export default function RoleCreate() {
+export default function RoleUpdate() {
+    const { role } = usePage().props; // Data role dari Inertia
     const [values, setValues] = useState({
-        name: "",
-        status: "1",
+        name: role.name,
+        status: role.status.toString(),
     });
 
     function handleChange(e) {
@@ -25,24 +26,24 @@ export default function RoleCreate() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        router.post("/role", values);
+        router.put(`/role/${role.id}`, values);
     }
 
     return (
         <>
-            <Head title="Tambah Role" />
-            <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-400 to-blue-700">
+            <Head title="Edit Role" />
+            <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-400 to-green-700">
                 <Card className="w-full max-w-lg shadow-lg bg-white">
                     {/* Header */}
                     <CardHeader
                         floated={false}
-                        className="bg-blue-600 text-white text-center py-5 rounded-t-lg"
+                        className="bg-green-600 text-white text-center py-5 rounded-t-lg"
                     >
                         <Typography variant="h4" className="font-bold">
-                            Tambah Role
+                            Edit Role
                         </Typography>
                         <Typography variant="small" className="text-gray-200">
-                            Silakan isi data role di bawah ini
+                            Perbarui data role di bawah ini
                         </Typography>
                     </CardHeader>
 
@@ -57,7 +58,7 @@ export default function RoleCreate() {
                                     value={values.name}
                                     onChange={handleChange}
                                     required
-                                    className="focus:border-blue-500"
+                                    className="focus:border-green-500"
                                 />
                             </div>
 
@@ -73,7 +74,7 @@ export default function RoleCreate() {
                                             status: value,
                                         }))
                                     }
-                                    className="focus:border-blue-500"
+                                    className="focus:border-green-500"
                                 >
                                     <Option value="1">Aktif</Option>
                                     <Option value="0">Tidak Aktif</Option>
@@ -91,8 +92,8 @@ export default function RoleCreate() {
                         >
                             Batal
                         </Button>
-                        <Button color="blue" onClick={handleSubmit}>
-                            Simpan Role
+                        <Button color="green" onClick={handleSubmit}>
+                            Perbarui Role
                         </Button>
                     </CardFooter>
                 </Card>

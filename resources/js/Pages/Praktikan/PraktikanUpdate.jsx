@@ -23,8 +23,7 @@ export default function PraktikanUpdate({ praktikan, praktikums }) {
 
     return (
         <PageLayout title="Edit Praktikan">
-            <Head title="Edit Praktikan" />
-            <div className="p-8 bg-white rounded-lg shadow-lg">
+            <div className="p-8 bg-white rounded-lg shadow-lg relative">
                 <h1 className="text-3xl font-bold text-gray-800 mb-6">
                     Edit Praktikan
                 </h1>
