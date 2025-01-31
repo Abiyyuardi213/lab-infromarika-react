@@ -39,7 +39,7 @@ class PraktikanController extends Controller
             'npm' => 'required|string|max:20|unique:praktikans',
             'jurusan' => 'required|string|max:255',
             'angkatan' => 'required|integer|min:2000|max:' . date('Y'),
-            'praktikum_id' => 'required|exists:praktikums,id',
+            'praktikum_id' => 'nullable|exists:praktikums,id', // Tambahkan 'nullable'
             'status' => 'required|boolean',
         ]);
 
@@ -53,11 +53,11 @@ class PraktikanController extends Controller
      */
     public function show(Praktikan $praktikan)
     {
-        return Inertia::render('Praktikan/PraktikanDetail', [
-            'praktikan' => $praktikan->load('praktikum'),
+        return response()->json([
+            'praktikan' => $praktikan->load('praktikum')
         ]);
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */

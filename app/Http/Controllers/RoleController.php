@@ -38,7 +38,7 @@ class RoleController extends Controller
 
         Role::create($request->all());
 
-        return redirect()->route('roles.index');
+        return redirect()->route('role.index');
     }
 
     /**
@@ -73,7 +73,7 @@ class RoleController extends Controller
 
         $role->update($request->all());
 
-        return redirect()->route('roles.index');
+        return redirect()->route('role.index');
     }
 
     /**
@@ -82,6 +82,6 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('roles.index');
+        return redirect()->route('role.index');
     }
 }

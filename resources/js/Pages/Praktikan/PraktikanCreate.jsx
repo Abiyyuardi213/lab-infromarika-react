@@ -23,8 +23,7 @@ export default function PraktikanCreate({ praktikums }) {
 
     return (
         <PageLayout title="Tambah Praktikan">
-            <Head title="Tambah Praktikan" />
-            <div className="p-8 bg-white rounded-lg shadow-lg">
+            <div className="p-8 bg-white rounded-lg shadow-lg relative">
                 <h1 className="text-3xl font-bold text-gray-800 mb-6">
                     Tambah Praktikan
                 </h1>
@@ -87,9 +86,13 @@ export default function PraktikanCreate({ praktikums }) {
                         </label>
                         <select
                             name="praktikum_id"
-                            value={values.praktikum_id}
-                            onChange={handleChange}
-                            required
+                            value={values.praktikum_id ?? ""}
+                            onChange={(e) =>
+                                setValues({
+                                    ...values,
+                                    praktikum_id: e.target.value || null,
+                                })
+                            }
                             className="w-full p-2 border rounded"
                         >
                             <option value="">Pilih Praktikum</option>
