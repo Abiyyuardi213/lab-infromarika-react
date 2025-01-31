@@ -74,7 +74,7 @@ export default function RoleList({ roles, filters }) {
                     </h1>
                     <Button className="flex items-center gap-3" size="sm">
                         <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add
-                        member
+                        Role
                     </Button>
                 </div>
 
