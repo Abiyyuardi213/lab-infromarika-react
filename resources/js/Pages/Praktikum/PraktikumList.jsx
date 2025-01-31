@@ -15,8 +15,7 @@ export default function PraktikumList({ praktikums }) {
 
     return (
         <PageLayout title="Daftar Praktikum">
-            <Head title="Daftar Praktikum" />
-            <div className="p-8 bg-white rounded-lg shadow-lg">
+            <div className="p-8 bg-white rounded-lg shadow-lg relative">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-800">
                         Daftar Praktikum
