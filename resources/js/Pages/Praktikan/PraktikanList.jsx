@@ -3,29 +3,28 @@ import { Head, Link } from "@inertiajs/react";
 import PageLayout from "@/Layouts/PageLayout";
 import axios from "axios";
 
-export default function PraktikumList({ praktikums }) {
-    // Fungsi untuk menghapus praktikum
-    const deletePraktikum = (id) => {
-        if (confirm("Apakah Anda yakin ingin menghapus praktikum ini?")) {
-            axios.delete(`/praktikum/${id}`).then(() => {
+export default function PraktikanList({ praktikans }) {
+    const deletePraktikan = (id) => {
+        if (confirm("Apakah Anda yakin ingin menghapus praktikan ini?")) {
+            axios.delete(`/praktikan/${id}`).then(() => {
                 window.location.reload();
             });
         }
     };
 
     return (
-        <PageLayout title="Daftar Praktikum">
-            <Head title="Daftar Praktikum" />
+        <PageLayout title="Daftar Praktikan">
+            <Head title="Daftar Praktikan" />
             <div className="p-8 bg-white rounded-lg shadow-lg">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-800">
-                        Daftar Praktikum
+                        Daftar Praktikan
                     </h1>
                     <Link
-                        href="/praktikum/create"
+                        href="/praktikan/create"
                         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
                     >
-                        + Tambah Praktikum
+                        + Tambah Praktikan
                     </Link>
                 </div>
                 <div className="overflow-x-auto">
@@ -36,13 +35,13 @@ export default function PraktikumList({ praktikums }) {
                                     Nama
                                 </th>
                                 <th className="p-3 font-semibold text-gray-700">
-                                    Kelas
+                                    NPM
                                 </th>
                                 <th className="p-3 font-semibold text-gray-700">
-                                    Periode
+                                    Jurusan
                                 </th>
                                 <th className="p-3 font-semibold text-gray-700">
-                                    Tahun
+                                    Angkatan
                                 </th>
                                 <th className="p-3 font-semibold text-gray-700">
                                     Status
@@ -53,16 +52,16 @@ export default function PraktikumList({ praktikums }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {praktikums && praktikums.length > 0 ? (
-                                praktikums.map((item) => (
+                            {praktikans && praktikans.length > 0 ? (
+                                praktikans.map((item) => (
                                     <tr
                                         key={item.id}
                                         className="border-b border-gray-200 hover:bg-gray-50 transition duration-150 ease-in-out"
                                     >
-                                        <td className="p-3">{item.name}</td>
-                                        <td className="p-3">{item.kelas}</td>
-                                        <td className="p-3">{item.periode}</td>
-                                        <td className="p-3">{item.tahun}</td>
+                                        <td className="p-3">{item.nama}</td>
+                                        <td className="p-3">{item.npm}</td>
+                                        <td className="p-3">{item.jurusan}</td>
+                                        <td className="p-3">{item.angkatan}</td>
                                         <td className="p-3">
                                             <span
                                                 className={`px-2 py-1 rounded-full text-xs font-semibold ${
@@ -79,14 +78,14 @@ export default function PraktikumList({ praktikums }) {
                                         <td className="p-3">
                                             <div className="flex gap-2">
                                                 <Link
-                                                    href={`/praktikum/${item.id}/edit`}
+                                                    href={`/praktikan/${item.id}/edit`}
                                                     className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-300 ease-in-out"
                                                 >
                                                     Edit
                                                 </Link>
                                                 <button
                                                     onClick={() =>
-                                                        deletePraktikum(item.id)
+                                                        deletePraktikan(item.id)
                                                     }
                                                     className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-300 ease-in-out"
                                                 >
@@ -102,7 +101,7 @@ export default function PraktikumList({ praktikums }) {
                                         colSpan="6"
                                         className="text-center p-6 text-gray-500 italic"
                                     >
-                                        Tidak ada praktikum tersedia.
+                                        Tidak ada praktikan tersedia.
                                     </td>
                                 </tr>
                             )}

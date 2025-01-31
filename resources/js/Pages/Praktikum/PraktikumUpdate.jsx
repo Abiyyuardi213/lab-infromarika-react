@@ -6,6 +6,7 @@ export default function PraktikumUpdate({ praktikum }) {
         name: praktikum.name,
         periode: praktikum.periode,
         tahun: praktikum.tahun,
+        kelas: praktikum.kelas,
         status: praktikum.status,
     });
 
@@ -31,6 +32,19 @@ export default function PraktikumUpdate({ praktikum }) {
                         id="name"
                         type="text"
                         value={values.name}
+                        onChange={handleChange}
+                        className="w-full border rounded p-2"
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="kelas" className="block font-semibold">
+                        Kelas:
+                    </label>
+                    <input
+                        id="kelas"
+                        type="text"
+                        value={values.kelas}
                         onChange={handleChange}
                         className="w-full border rounded p-2"
                         required

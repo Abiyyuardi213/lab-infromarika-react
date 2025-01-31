@@ -7,6 +7,7 @@ export default function PraktikumCreate() {
         name: "",
         periode: "",
         tahun: "",
+        kelas: "",
         status: "1",
     });
 
@@ -40,6 +41,19 @@ export default function PraktikumCreate() {
                         <input
                             id="name"
                             value={values.name}
+                            type="text"
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="kelas" className="block font-semibold">
+                            Kelas:
+                        </label>
+                        <input
+                            id="kelas"
+                            value={values.kelas}
                             type="text"
                             onChange={handleChange}
                             className="w-full p-2 border rounded"

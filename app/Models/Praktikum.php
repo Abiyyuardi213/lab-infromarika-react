@@ -9,5 +9,5 @@ class Praktikum extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['name', 'periode', 'tahun', 'status'];
+    protected $fillable = ['name', 'periode', 'tahun', 'kelas', 'status'];
 }
