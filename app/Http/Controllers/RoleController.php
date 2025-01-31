@@ -2,67 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class RoleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar role.
      */
     public function index()
     {
         return Inertia::render('Role/RoleList', [
-            'roles' => Roles::all(),
+            'roles' => Role::all(),
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan form untuk membuat role baru.
      */
     public function create()
     {
-        //
+        return Inertia::render('Role/RoleCreate');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan role baru ke database.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:roles',
+            'status' => 'required|boolean',
+        ]);
+
+        Role::create($request->all());
+
+        return redirect()->route('roles.index');
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan detail role tertentu.
      */
-    public function show(Roles $roles)
+    public function show(Role $role)
     {
-        //
+        return Inertia::render('Role/RoleDetail', [
+            'role' => $role,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan form untuk mengedit role.
      */
-    public function edit(Roles $roles)
+    public function edit(Role $role)
     {
-        //
+        return Inertia::render('Role/RoleUpdate', [
+            'role' => $role,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui role di database.
      */
-    public function update(Request $request, Roles $roles)
+    public function update(Request $request, Role $role)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:roles,name,' . $role->id,
+            'status' => 'required|boolean',
+        ]);
+
+        $role->update($request->all());
+
+        return redirect()->route('roles.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus role dari database.
      */
-    public function destroy(Roles $roles)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect()->route('roles.index');
     }
 }
