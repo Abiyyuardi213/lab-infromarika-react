@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "@inertiajs/react";
-import { Button, IconButton } from "@material-tailwind/react";
-import { UserPlusIcon } from "@heroicons/react/24/solid";
+import { IconButton } from "@material-tailwind/react";
+
 const Table = ({
     data = [],
     columns = [],
     title = "",
+    actionButton = null, // Properti tambahan untuk button dinamis
     onEdit,
     isLoading = false,
 }) => {
@@ -28,43 +28,6 @@ const Table = ({
             );
         }
 
-        if (column.type === "avatar") {
-            return (
-                <div className="flex items-center">
-                    <img
-                        src={item[column.imageKey] || "/placeholder.png"}
-                        alt={item[column.titleKey] || ""}
-                        className="w-10 h-10 rounded-full mr-3"
-                    />
-                    <div>
-                        <div className="font-medium text-gray-900">
-                            {item[column.titleKey]}
-                        </div>
-                        {column.subtitleKey && (
-                            <div className="text-gray-500 text-sm">
-                                {item[column.subtitleKey]}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        if (column.type === "double-line") {
-            return (
-                <div>
-                    <div className="font-medium text-gray-900">
-                        {item[column.titleKey]}
-                    </div>
-                    {column.subtitleKey && (
-                        <div className="text-gray-500 text-sm">
-                            {item[column.subtitleKey]}
-                        </div>
-                    )}
-                </div>
-            );
-        }
-
         return item[column.key];
     };
 
@@ -77,10 +40,8 @@ const Table = ({
                             {title}
                         </h2>
                     )}
-                    <Button className="flex items-center gap-3" size="sm">
-                        <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add
-                        member
-                    </Button>
+                    {actionButton && actionButton}{" "}
+                    {/* Render button jika diberikan */}
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">
@@ -127,16 +88,14 @@ const Table = ({
                                         ))}
                                         {onEdit && (
                                             <td className="py-4 px-4">
-                                                <a href="#buttons-with-link">
-                                                    <IconButton>
-                                                        <i className="fas fa-heart" />
-                                                    </IconButton>
-                                                </a>
+                                                <IconButton>
+                                                    <i className="fas fa-heart" />
+                                                </IconButton>
                                                 <button
                                                     onClick={() => onEdit(item)}
                                                     className="text-blue-600 hover:text-blue-800"
                                                 >
-                                                    Edite
+                                                    Edit
                                                 </button>
                                             </td>
                                         )}
