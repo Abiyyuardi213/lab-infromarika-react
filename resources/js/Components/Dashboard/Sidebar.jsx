@@ -48,6 +48,14 @@ export default function Sidebar({ show }) {
                             Dashboard
                         </Link>
                     </ListItem>
+                    <ListItem className="hover:bg-blue-50">
+                        <ListItemPrefix>
+                            <UsersIcon className="h-5 w-5 text-blue-600" />
+                        </ListItemPrefix>
+                        <Link href="/role" className="w-full text-gray-700">
+                            Management Role
+                        </Link>
+                    </ListItem>
                     <Accordion
                         open={open === 1}
                         icon={
