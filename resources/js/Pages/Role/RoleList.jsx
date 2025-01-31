@@ -44,12 +44,6 @@ export default function RoleList({ roles, filters }) {
             label: "ACTIONS",
             render: (role) => (
                 <div className="flex gap-2">
-                    {/* <button
-                        onClick={() => handleEdit(role)}
-                        className="text-blue-600 hover:text-blue-800"
-                    >
-                        Edit
-                    </button> */}
                     <button href="#buttons-with-link">
                         <IconButton
                             color="white"
