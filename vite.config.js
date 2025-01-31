@@ -10,6 +10,9 @@ export default defineConfig({
         }),
         react(),
     ],
+    optimizeDeps: {
+        exclude: ['framer-motion'],
+    },
     resolve: {
         alias: {
             '@': '/resources/js'

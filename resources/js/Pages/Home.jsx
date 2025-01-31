@@ -4,7 +4,11 @@ import {
     Card,
     CardBody,
     Button,
+    Dialog,
+    CardFooter,
     Typography,
+    Input,
+    Checkbox,
     IconButton,
 } from "@material-tailwind/react";
 
@@ -32,7 +36,8 @@ const practiceData = [
 const Home = () => {
     const [isHovered, setIsHovered] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
-
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen((cur) => !cur);
     const nextSlide = () => {
         setCurrentIndex((prev) => (prev + 1) % practiceData.length);
     };
@@ -56,9 +61,75 @@ const Home = () => {
                     <a href="/" className="text-2xl font-bold text-gray-800">
                         Lab Informatika
                     </a>
-                    <Button variant="gradient" color="blue">
+                    <Button
+                        onClick={handleOpen}
+                        variant="gradient"
+                        color="blue"
+                    >
                         Login
                     </Button>
+                    <Dialog
+                        size="xs"
+                        open={open}
+                        handler={handleOpen}
+                        className="bg-transparent shadow-none"
+                    >
+                        <Card className="mx-auto w-full max-w-[24rem]">
+                            <CardBody className="flex flex-col gap-4">
+                                <Typography variant="h4" color="blue-gray">
+                                    Masuk
+                                </Typography>
+                                <Typography
+                                    className="mb-3 font-normal"
+                                    variant="paragraph"
+                                    color="gray"
+                                >
+                                    Masukkan NPM dan Password kamu untuk masuk.
+                                </Typography>
+                                <Typography className="-mb-2" variant="h6">
+                                    NPM
+                                </Typography>
+                                <Input
+                                    label="NPM"
+                                    size="lg"
+                                    placeholder="06.20XX.X.XXXXX"
+                                />
+                                <Typography className="-mb-2" variant="h6">
+                                    Password
+                                </Typography>
+                                <Input label="Password" size="lg" />
+                                <div className="-ml-2.5 -mt-3">
+                                    <Checkbox label="Remember Me" />
+                                </div>
+                            </CardBody>
+                            <CardFooter className="pt-0">
+                                <Button
+                                    // variant="gradient"
+                                    onClick={handleOpen}
+                                    fullWidth
+                                    className="bg-pink-600"
+                                >
+                                    Masuk
+                                </Button>
+                                <Typography
+                                    variant="small"
+                                    className="mt-4 flex justify-center"
+                                >
+                                    Belum Punya Akun?
+                                    <Typography
+                                        as="a"
+                                        href="#signup"
+                                        variant="small"
+                                        color="blue-gray"
+                                        className="ml-1 font-bold text-pink-600"
+                                        onClick={handleOpen}
+                                    >
+                                        Daftar Sekarang
+                                    </Typography>
+                                </Typography>
+                            </CardFooter>
+                        </Card>
+                    </Dialog>
                 </div>
             </motion.nav>
 
