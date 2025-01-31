@@ -11,7 +11,10 @@ export default function Navbar({ toggleSidebar, title }) {
                     <IconButton variant="text" onClick={toggleSidebar}>
                         <Bars3Icon className="h-6 w-6 bg-white rounded-lg" />
                     </IconButton>
-                    <Typography variant="h6" className="ml-4">
+                    <Typography
+                        variant="h6"
+                        className="relative ml-4 text-white"
+                    >
                         {title}
                     </Typography>
                 </div>

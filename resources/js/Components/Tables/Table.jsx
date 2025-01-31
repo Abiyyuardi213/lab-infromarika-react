@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-
+import { Button, IconButton } from "@material-tailwind/react";
+import { UserPlusIcon } from "@heroicons/react/24/solid";
 const Table = ({
     data = [],
     columns = [],
@@ -70,11 +71,17 @@ const Table = ({
     return (
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="p-6">
-                {title && (
-                    <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                        {title}
-                    </h2>
-                )}
+                <div className="flex justify-between mb-4">
+                    {title && (
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                            {title}
+                        </h2>
+                    )}
+                    <Button className="flex items-center gap-3" size="sm">
+                        <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add
+                        member
+                    </Button>
+                </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">
                         <thead>
@@ -120,11 +127,16 @@ const Table = ({
                                         ))}
                                         {onEdit && (
                                             <td className="py-4 px-4">
+                                                <a href="#buttons-with-link">
+                                                    <IconButton>
+                                                        <i className="fas fa-heart" />
+                                                    </IconButton>
+                                                </a>
                                                 <button
                                                     onClick={() => onEdit(item)}
                                                     className="text-blue-600 hover:text-blue-800"
                                                 >
-                                                    Edit
+                                                    Edite
                                                 </button>
                                             </td>
                                         )}
