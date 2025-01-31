@@ -12,7 +12,6 @@ export default function DashboardLayout({ children, title }) {
     return (
         <div className="m-0 font-sans antialiased font-normal dark:bg-slate-900 text-base leading-default bg-gray-50 text-slate-500">
             <div className="absolute min-h-75 h-[20rem] w-full bg-pink-500 dark:hidden "></div>{" "}
-            {/* Ubah background jadi biru */}
             <Sidebar show={showSidebar} />
             <main
                 className={`flex-1 flex flex-col ${

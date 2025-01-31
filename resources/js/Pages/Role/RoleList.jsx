@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import { Head } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
 import Table from "@/Components/Tables/Table";
-import { Button } from "@material-tailwind/react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import { UserPlusIcon } from "@heroicons/react/24/solid";
-
-// import { columns } from "./tableConfig";
-// // Pages/Roles/tableConfig.js
+import { Button, IconButton } from "@material-tailwind/react";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 export const columns = [
     {
         label: "NAME",
@@ -47,17 +44,34 @@ export default function RoleList({ roles, filters }) {
             label: "ACTIONS",
             render: (role) => (
                 <div className="flex gap-2">
-                    <button
+                    {/* <button
                         onClick={() => handleEdit(role)}
                         className="text-blue-600 hover:text-blue-800"
                     >
                         Edit
+                    </button> */}
+                    <button href="#buttons-with-link">
+                        <IconButton
+                            color="white"
+                            onClick={() => handleEdit(role)}
+                        >
+                            <PencilIcon
+                                strokeWidth={2}
+                                className="h-4 w-4 text-blue-600"
+                            />{" "}
+                        </IconButton>
                     </button>
-                    <button
-                        onClick={() => handleDelete(role)}
-                        className="text-red-600 hover:text-red-800"
-                    >
-                        Delete
+
+                    <button>
+                        <IconButton
+                            color="red"
+                            onClick={() => handleDelete(role)}
+                        >
+                            <TrashIcon
+                                strokeWidth={2}
+                                className="h-4 w-4 text-white"
+                            />{" "}
+                        </IconButton>
                     </button>
                 </div>
             ),
@@ -65,33 +79,13 @@ export default function RoleList({ roles, filters }) {
     ];
 
     return (
-        <DashboardLayout title="Dashboard">
+        <DashboardLayout title="Management Role">
             <Head title="Roles" />
             <div className="relative container mx-auto p-4">
-                <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-2xl font-bold text-white bg-green">
-                        Roles List
-                    </h1>
-                    <Button className="flex items-center gap-3" size="sm">
-                        <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add
-                        member
-                    </Button>
-                </div>
-
-                <div className="mb-4">
-                    <input
-                        type="text"
-                        placeholder="Search roles..."
-                        value={searchQuery}
-                        onChange={handleSearch}
-                        className="w-full md:w-1/3 px-4 py-2 border rounded-lg"
-                    />
-                </div>
-
                 <Table
                     data={roles}
                     columns={columnsWithActions}
-                    title="Roles Management"
+                    title="Management Role"
                 />
             </div>
         </DashboardLayout>
