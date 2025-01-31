@@ -5,6 +5,8 @@ import Table from "@/Components/Tables/Table";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Button, IconButton } from "@material-tailwind/react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { UserPlusIcon } from "@heroicons/react/24/outline";
+import AddButton from "@/Components/Tables/AddButton";
 export const columns = [
     {
         label: "NAME",
@@ -36,6 +38,9 @@ export default function RoleList({ roles, filters }) {
         if (confirm("Are you sure you want to delete this role?")) {
             router.delete(`/roles/${role.id}`);
         }
+    };
+    const handleAdd = () => {
+        router.get("/roles/create");
     };
 
     const columnsWithActions = [
@@ -80,6 +85,15 @@ export default function RoleList({ roles, filters }) {
                     data={roles}
                     columns={columnsWithActions}
                     title="Management Role"
+                    actionButton={
+                        <AddButton
+                            label="Add User"
+                            icon={UserPlusIcon}
+                            size="sm"
+                            onClick={() => handleAdd()}
+                            className="bg-pink-600 text-white"
+                        />
+                    }
                 />
             </div>
         </DashboardLayout>
