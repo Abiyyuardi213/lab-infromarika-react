@@ -27,13 +27,16 @@ export default function Sidebar({ show }) {
     };
     return (
         <aside
-            className={`fixed top-0 left-0 z-40 h-screen transition-transform
+            className={`font-poppins fixed top-0 left-0 z-40 h-screen transition-transform
             ${show ? "translate-x-0" : "-translate-x-full"}`}
         >
             <Card className="h-full w-64 p-4 shadow-xl shadow-blue-gray-900/5 bg-white rounded-none">
                 <div className="mb-2 p-4">
-                    <Typography variant="h5" className="text-gray-900">
-                        Argon Dashboard 2
+                    <Typography
+                        variant="h5"
+                        className="text-gray-900 font-poppins"
+                    >
+                        Laboratorium Informatika
                     </Typography>
                 </div>
                 <List>
@@ -77,7 +80,7 @@ export default function Sidebar({ show }) {
                                 </ListItemPrefix>
                                 <Typography
                                     color="blue-gray"
-                                    className="mr-auto font-normal"
+                                    className="mr-auto font-normal font-poppins"
                                 >
                                     Praktikum
                                 </Typography>
@@ -92,7 +95,10 @@ export default function Sidebar({ show }) {
                                             className="h-3 w-5"
                                         />
                                     </ListItemPrefix>
-                                    <Link href="/praktikum">
+                                    <Link
+                                        href="/kategori-praktikum"
+                                        className="w-full text-gray-700 font-poppins"
+                                    >
                                         Kategori Praktikum
                                     </Link>
                                 </ListItem>
@@ -100,11 +106,17 @@ export default function Sidebar({ show }) {
                                     <ListItemPrefix>
                                         <ChevronRightIcon
                                             strokeWidth={3}
-                                            className="h-3 w-5"
+                                            className="h-3 w-5 "
                                         />
                                     </ListItemPrefix>
-                                    Reporting
+                                    <Link
+                                        href="/praktikum"
+                                        className="font-poppins"
+                                    >
+                                        Praktikum
+                                    </Link>
                                 </ListItem>
+
                                 <ListItem>
                                     <ListItemPrefix>
                                         <ChevronRightIcon
@@ -112,7 +124,12 @@ export default function Sidebar({ show }) {
                                             className="h-3 w-5"
                                         />
                                     </ListItemPrefix>
-                                    Projects
+                                    <Link
+                                        href="/praktikum"
+                                        className="font-poppins"
+                                    >
+                                        hahah
+                                    </Link>
                                 </ListItem>
                             </List>
                         </AccordionBody>
@@ -132,10 +149,13 @@ export default function Sidebar({ show }) {
 
                 {/* Bagian help */}
                 <div className="mt-auto p-4">
-                    <Typography variant="h6" className="mb-2">
+                    <Typography variant="h6" className="mb-2 font-poppins">
                         Need help?
                     </Typography>
-                    <Typography variant="small" className="text-gray-600">
+                    <Typography
+                        variant="small"
+                        className="text-gray-600 font-poppins"
+                    >
                         Please check our docs
                     </Typography>
                     <Button className="mt-4 w-full" color="blue">
