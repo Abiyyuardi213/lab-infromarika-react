@@ -14,18 +14,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Index');
 })->name('dashboard');
-
-Route::get('/tables', function () {
-    return Inertia::render('Dashboard/Tables');
-})->name('tables');
-
-Route::get('/profile', function () {
-    return Inertia::render('Dashboard/Profile');
-})->name('profile');
-
 Route::resource('/post', PostController::class);
 
 Route::resource('/role', RoleController::class);
+
+
 //praktikum route
 Route::resource('/praktikum', PraktikumController::class);
 Route::resource('/kategori-praktikum', JenisPraktikumController::class);
