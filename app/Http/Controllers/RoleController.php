@@ -11,13 +11,35 @@ class RoleController extends Controller
     /**
      * Menampilkan daftar role.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Role::query();
+
+        // Handle search
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Handle sorting
+        $sortField = $request->input('sort', 'name');
+        $sortDirection = $request->input('direction', 'asc');
+        $query->orderBy($sortField, $sortDirection);
+
+        // Handle pagination
+        $perPage = $request->input('perPage', 10);
+        $roles = $query->paginate($perPage);
+
         return Inertia::render('Role/RoleList', [
-            'roles' => Role::all(),
+            'roles' => $roles,
+            'filters' => [
+                'search' => $request->search,
+                'page' => $roles->currentPage(),
+                'perPage' => $perPage,
+                'sort' => $sortField,
+                'direction' => $sortDirection
+            ]
         ]);
     }
-
     /**
      * Menampilkan form untuk membuat role baru.
      */

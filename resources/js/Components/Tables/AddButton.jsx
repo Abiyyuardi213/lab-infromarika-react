@@ -15,7 +15,7 @@ const AddButton = ({
             onClick={onClick}
         >
             {Icon && <Icon strokeWidth={2} className="h-4 w-4" />}
-            <span className="sm:hidden md:block">{label}</span>
+            <span className="sm:hidden md:block font-poppins">{label}</span>
         </Button>
     );
 };
