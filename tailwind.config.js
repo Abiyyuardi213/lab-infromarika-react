@@ -10,7 +10,11 @@ module.exports = withMT({
         "./node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                poppins: ['Poppins', 'sans-serif'],
+            },
+        },
     },
     plugins: [],
 });

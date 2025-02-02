@@ -8,7 +8,7 @@ export default function PageLayout({ children, title }) {
     const [showSidebar, setShowSidebar] = useState(true);
 
     return (
-        <div className="m-0 font-sans antialiased font-normal dark:bg-slate-900 text-base leading-default bg-gray-50 text-slate-500 flex min-h-screen">
+        <div className="m-0  antialiased font-normal dark:bg-slate-900 text-base leading-default bg-gray-50 text-slate-500 flex min-h-screen">
             <div className="absolute min-h-75 h-[20rem] w-full bg-pink-500 dark:hidden "></div>{" "}
             <Sidebar show={showSidebar} />
             <div

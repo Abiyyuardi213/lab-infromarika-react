@@ -13,7 +13,7 @@ export default function Navbar({ toggleSidebar, title }) {
                     </IconButton>
                     <Typography
                         variant="h6"
-                        className="relative ml-4 text-white"
+                        className="relative ml-4 text-white font-poppins"
                     >
                         {title}
                     </Typography>
