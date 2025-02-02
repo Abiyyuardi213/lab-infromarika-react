@@ -94,12 +94,11 @@ export default function JenisPraktikumList({ jenisPraktikums }) {
 
     return (
         <DashboardLayout title="Kategori Praktikum">
-            <Head title="Kategori Praktikum" />
             <div className="relative container mx-auto p-4">
                 <Table
                     data={jenisPraktikums}
                     columns={columnsWithActions}
-                    title="Kategori Praktikum"
+                    title="Kategori Praktikum List"
                     actionButton={
                         <AddButton
                             label="Add Kategori"

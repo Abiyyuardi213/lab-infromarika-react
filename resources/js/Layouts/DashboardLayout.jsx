@@ -10,7 +10,7 @@ export default function DashboardLayout({ children, title }) {
     const [showSidebar, setShowSidebar] = useState(true);
 
     return (
-        <div className="m-0  antialiased font-normal dark:bg-slate-900 text-base leading-default bg-gray-50 text-slate-500">
+        <div className="m-0  antialiased font-normal dark:bg-slate-900 text-base leading-default bg-gray-50 text-slate-500 flex min-h-screen">
             <div className="absolute min-h-75 h-[20rem] w-full bg-pink-500 dark:hidden "></div>{" "}
             <Sidebar show={showSidebar} />
             <main
@@ -24,6 +24,7 @@ export default function DashboardLayout({ children, title }) {
                 />
 
                 <div className="flex-1 px-6 py-4">{children}</div>
+                <Footer className="mt-auto" />
             </main>
         </div>
     );
