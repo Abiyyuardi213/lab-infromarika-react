@@ -14,8 +14,6 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $query = Role::query();
-
-        // Handle search
         if ($request->has('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
