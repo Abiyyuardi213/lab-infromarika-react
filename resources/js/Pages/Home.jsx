@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Head } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import {
     Card,
@@ -77,6 +78,7 @@ const Home = () => {
 
     return (
         <div className="min-h-screen bg-white">
+            <Head title={`Laboratorium Informatika ITATS`} />
             {/* Navbar */}
             <motion.nav
                 className="fixed w-full bg-white shadow-sm z-50"
