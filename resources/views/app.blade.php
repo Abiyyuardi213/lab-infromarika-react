@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title inertia>Laboratorium Informatika ITATS</title>
+    <link rel="icon" href="{{ asset('logo.ico') }}" type="image/x-icon" />
     @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
