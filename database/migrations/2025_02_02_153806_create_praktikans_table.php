@@ -9,13 +9,10 @@ return new class extends Migration {
     {
         Schema::create('praktikans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('npm')->unique(); // Mengubah nim menjadi npm
-            $table->string('jurusan');
-            $table->integer('angkatan');
-            $table->unsignedBigInteger('praktikum_id'); // Foreign key ke tabel praktikum
-            $table->foreign('praktikum_id')->references('id')->on('praktikums')->onDelete('cascade');
-            $table->tinyInteger('status');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('nama_praktikan');
+            $table->string('npm')->unique();
+            $table->string('no_hp')->nullable();
             $table->timestamps();
         });
     }

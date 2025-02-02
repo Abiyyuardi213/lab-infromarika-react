@@ -13,12 +13,9 @@
         {
             Schema::create('praktikums', function (Blueprint $table) {
                 $table->id();
-                $table->string('name')->unique(); // Nama praktikum unik
-                $table->string('periode')->index(); // Tambahkan index untuk pencarian cepat
-                $table->integer('tahun'); // Ubah jadi integer
-                $table->string('kelas'); // Tambahkan kolom kelas tanpa batasan nilai
-                $table->tinyInteger('status');
-
+                $table->string('name')->unique();
+                $table->foreignId('jenis_praktikum_id')->constrained('jenis_praktikums')->onDelete('restrict');
+                $table->foreignId('periode_praktikum_id')->constrained('periode_praktikums')->onDelete('restrict');
                 $table->timestamps();
             });
         }
