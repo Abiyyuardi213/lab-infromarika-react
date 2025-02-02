@@ -11,12 +11,36 @@ class PraktikumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Praktikum::query();
+
+        // Handle pencarian (search)
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Handle sorting (pengurutan)
+        $sortField = $request->input('sort', 'name');
+        $sortDirection = $request->input('direction', 'asc');
+        $query->orderBy($sortField, $sortDirection);
+
+        // Handle pagination
+        $perPage = $request->input('perPage', 10);
+        $praktikums = $query->paginate($perPage);
+
         return Inertia::render('Praktikum/PraktikumList', [
-            'praktikums' => Praktikum::all(),
+            'praktikums' => $praktikums,
+            'filters' => [
+                'search' => $request->search,
+                'page' => $praktikums->currentPage(),
+                'perPage' => $perPage,
+                'sort' => $sortField,
+                'direction' => $sortDirection,
+            ],
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
