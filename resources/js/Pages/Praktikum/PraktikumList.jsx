@@ -1,114 +1,121 @@
-import React from "react";
+import React, { useState } from "react";
 import { Head, Link } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 import PageLayout from "@/Layouts/PageLayout";
-import axios from "axios";
+import { IconButton } from "@material-tailwind/react";
+import { PencilIcon, TrashIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import Table from "@/Components/Tables/Table";
+import AddButton from "@/Components/Tables/AddButton";
+import DashboardLayout from "../../Layouts/DashboardLayout";
 
-export default function PraktikumList({ praktikums }) {
-    // Fungsi untuk menghapus praktikum
-    const deletePraktikum = (id) => {
+export const columns = [
+    {
+        label: "NAMA",
+        key: "name",
+    },
+    {
+        label: "KELAS",
+        key: "kelas",
+    },
+    {
+        label: "PERIODE",
+        key: "periode",
+    },
+    {
+        label: "TAHUN",
+        key: "tahun",
+    },
+    {
+        label: "STATUS",
+        key: "status",
+        render: (praktikum) => (praktikum.status == 1 ? "Active" : "Inactive"),
+    },
+];
+
+export default function PraktikumList({ praktikums, filters }) {
+    const [searchQuery, setSearchQuery] = useState(filters?.search || "");
+
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+        router.get(
+            "/praktikum",
+            { search: e.target.value, page: 1 },
+            { preserveState: true, preserveScroll: true }
+        );
+    };
+
+    const handleEdit = (praktikum) => {
+        router.get(`/praktikum/${praktikum.id}/edit`);
+    };
+
+    const handleDelete = (praktikum) => {
         if (confirm("Apakah Anda yakin ingin menghapus praktikum ini?")) {
-            axios.delete(`/praktikum/${id}`).then(() => {
-                window.location.reload();
-            });
+            router.delete(`/praktikum/${praktikum.id}`);
         }
     };
 
-    return (
-        <PageLayout title="Daftar Praktikum">
-            <div className="p-8 bg-white rounded-lg shadow-lg relative">
-                <div className="flex justify-between items-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800">
-                        Daftar Praktikum
-                    </h1>
-                    <Link
-                        href="/praktikum/create"
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+    const handleAdd = () => {
+        router.get("/praktikum/create");
+    };
+
+    const columnsWithActions = [
+        ...columns,
+        {
+            label: "AKSI",
+            render: (praktikum) => (
+                <div className="flex gap-2">
+                    <IconButton
+                        color="white"
+                        onClick={() => handleEdit(praktikum)}
                     >
-                        + Tambah Praktikum
-                    </Link>
+                        <PencilIcon
+                            strokeWidth={2}
+                            className="h-4 w-4 text-blue-600"
+                        />
+                    </IconButton>
+                    <IconButton
+                        color="red"
+                        onClick={() => handleDelete(praktikum)}
+                    >
+                        <TrashIcon
+                            strokeWidth={2}
+                            className="h-4 w-4 text-white"
+                        />
+                    </IconButton>
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full border-collapse">
-                        <thead>
-                            <tr className="bg-gray-100 text-left">
-                                <th className="p-3 font-semibold text-gray-700">
-                                    Nama
-                                </th>
-                                <th className="p-3 font-semibold text-gray-700">
-                                    Kelas
-                                </th>
-                                <th className="p-3 font-semibold text-gray-700">
-                                    Periode
-                                </th>
-                                <th className="p-3 font-semibold text-gray-700">
-                                    Tahun
-                                </th>
-                                <th className="p-3 font-semibold text-gray-700">
-                                    Status
-                                </th>
-                                <th className="p-3 font-semibold text-gray-700">
-                                    Aksi
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {praktikums && praktikums.length > 0 ? (
-                                praktikums.map((item) => (
-                                    <tr
-                                        key={item.id}
-                                        className="border-b border-gray-200 hover:bg-gray-50 transition duration-150 ease-in-out"
-                                    >
-                                        <td className="p-3">{item.name}</td>
-                                        <td className="p-3">{item.kelas}</td>
-                                        <td className="p-3">{item.periode}</td>
-                                        <td className="p-3">{item.tahun}</td>
-                                        <td className="p-3">
-                                            <span
-                                                className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                                                    item.status === 1
-                                                        ? "bg-green-100 text-green-800"
-                                                        : "bg-gray-100 text-gray-800"
-                                                }`}
-                                            >
-                                                {item.status === 1
-                                                    ? "Aktif"
-                                                    : "Tidak Aktif"}
-                                            </span>
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex gap-2">
-                                                <Link
-                                                    href={`/praktikum/${item.id}/edit`}
-                                                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-300 ease-in-out"
-                                                >
-                                                    Edit
-                                                </Link>
-                                                <button
-                                                    onClick={() =>
-                                                        deletePraktikum(item.id)
-                                                    }
-                                                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-300 ease-in-out"
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td
-                                        colSpan="6"
-                                        className="text-center p-6 text-gray-500 italic"
-                                    >
-                                        Tidak ada praktikum tersedia.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+            ),
+        },
+    ];
+
+    return (
+        <DashboardLayout title="Daftar Praktikum">
+            <div className="relative container mx-auto p-4">
+                {/* Search Bar */}
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        placeholder="Cari praktikum..."
+                        value={searchQuery}
+                        onChange={handleSearch}
+                        className="border rounded-md px-4 py-2 w-full max-w-xs"
+                    />
                 </div>
+
+                <Table
+                    data={praktikums}
+                    columns={columnsWithActions}
+                    title="Daftar Praktikum"
+                    actionButton={
+                        <AddButton
+                            label="Tambah Praktikum"
+                            icon={UserPlusIcon}
+                            size="sm"
+                            onClick={() => handleAdd()}
+                            className="bg-blue-600 text-white"
+                        />
+                    }
+                />
             </div>
-        </PageLayout>
+        </DashboardLayout>
     );
 }

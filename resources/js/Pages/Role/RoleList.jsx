@@ -16,7 +16,7 @@ export const columns = [
     {
         label: "STATUS",
         key: "status",
-        type: "status",
+        render: (role) => (role.status == 1 ? "Active" : "Inactive"),
     },
 ];
 
@@ -121,7 +121,7 @@ export default function RoleList({ roles, filters }) {
     };
 
     const handleAdd = () => {
-        router.get("/roles/create");
+        router.get("/role/create");
     };
 
     const columnsWithActions = [
@@ -160,7 +160,6 @@ export default function RoleList({ roles, filters }) {
 
     return (
         <DashboardLayout title="Management Role">
-            <Head title="Roles" />
             <div className="relative container mx-auto p-4">
                 {/* Search input */}
                 <div className="mb-4">
@@ -176,10 +175,10 @@ export default function RoleList({ roles, filters }) {
                 <Table
                     data={roles}
                     columns={columnsWithActions}
-                    title="Management Role"
+                    title="Role List"
                     actionButton={
                         <AddButton
-                            label="Add User"
+                            label="Add Role"
                             icon={UserPlusIcon}
                             size="sm"
                             onClick={() => handleAdd()}
