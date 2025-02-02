@@ -40,7 +40,7 @@ export default function RoleList({ roles, filters }) {
         }
     };
     const handleAdd = () => {
-        router.get("/roles/create");
+        router.get("/role/create");
     };
 
     const columnsWithActions = [
@@ -87,7 +87,7 @@ export default function RoleList({ roles, filters }) {
                     title="Management Role"
                     actionButton={
                         <AddButton
-                            label="Add User"
+                            label="Add Role"
                             icon={UserPlusIcon}
                             size="sm"
                             onClick={() => handleAdd()}
