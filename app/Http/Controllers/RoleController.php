@@ -14,8 +14,6 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $query = Role::query();
-
-        // Handle search
         if ($request->has('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
@@ -37,7 +35,8 @@ class RoleController extends Controller
                 'perPage' => $perPage,
                 'sort' => $sortField,
                 'direction' => $sortDirection
-            ]
+            ],
+             'title' => 'Role'
         ]);
     }
     /**
