@@ -20,7 +20,7 @@ export const columns = [
     },
 ];
 
-export default function RoleList({ roles, filters }) {
+export default function RoleList({ roles, filters, title }) {
     const [searchQuery, setSearchQuery] = useState(filters?.search || "");
 
     // State untuk pagination dan sorting dari URL
@@ -130,37 +130,27 @@ export default function RoleList({ roles, filters }) {
             label: "ACTIONS",
             render: (role) => (
                 <div className="flex gap-2">
-                    <button href="#buttons-with-link">
-                        <IconButton
-                            color="white"
-                            onClick={() => handleEdit(role)}
-                        >
-                            <PencilIcon
-                                strokeWidth={2}
-                                className="h-4 w-4 text-blue-600"
-                            />
-                        </IconButton>
-                    </button>
+                    <IconButton color="white" onClick={() => handleEdit(role)}>
+                        <PencilIcon
+                            strokeWidth={2}
+                            className="h-4 w-4 text-blue-600"
+                        />
+                    </IconButton>
 
-                    <button>
-                        <IconButton
-                            color="red"
-                            onClick={() => handleDelete(role)}
-                        >
-                            <TrashIcon
-                                strokeWidth={2}
-                                className="h-4 w-4 text-white"
-                            />
-                        </IconButton>
-                    </button>
+                    <IconButton color="red" onClick={() => handleDelete(role)}>
+                        <TrashIcon
+                            strokeWidth={2}
+                            className="h-4 w-4 text-white"
+                        />
+                    </IconButton>
                 </div>
             ),
         },
     ];
-
+    // console.log(title);
     return (
         <DashboardLayout title="Management Role">
-            <Head title="Roles" />
+            <Head title={`${title} - Laboratorium Informatika ITATS`} />
             <div className="relative container mx-auto p-4">
                 {/* Search input */}
                 <div className="mb-4">

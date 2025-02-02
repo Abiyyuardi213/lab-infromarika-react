@@ -21,13 +21,97 @@ export const columns = [
         key: "name",
     },
 ];
-export default function JenisPraktikumList({ jenisPraktikums }) {
+export default function JenisPraktikumList({ jenisPraktikums, filters }) {
     //iki gae add
     const [openAdd, setOpenAdd] = useState(false);
     const [newData, setNewData] = useState({ name: "" });
     //iki gae update
     const [open, setOpen] = useState(false);
     const [currentData, setCurrentData] = useState({ id: "", name: "" });
+    const [searchQuery, setSearchQuery] = useState(filters?.search || "");
+
+    // State untuk pagination dan sorting dari URL
+    const [currentPage, setCurrentPage] = useState(filters?.page || 1);
+    const [itemsPerPage, setItemsPerPage] = useState(filters?.perPage || 10);
+    const [sortConfig, setSortConfig] = useState({
+        key: filters?.sort || "name",
+        direction: filters?.direction || "asc",
+    });
+
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+        router.get(
+            "/kategori-praktikum",
+            {
+                search: e.target.value,
+                page: 1, // Reset ke halaman pertama saat search
+                perPage: itemsPerPage,
+                sort: sortConfig.key,
+                direction: sortConfig.direction,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            }
+        );
+    };
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        router.get(
+            "/role",
+            {
+                search: searchQuery,
+                page: page,
+                perPage: itemsPerPage,
+                sort: sortConfig.key,
+                direction: sortConfig.direction,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            }
+        );
+    };
+    const handlePerPageChange = (perPage) => {
+        setItemsPerPage(perPage);
+        router.get(
+            "/role",
+            {
+                search: searchQuery,
+                page: 1, // Reset ke halaman pertama
+                perPage: perPage,
+                sort: sortConfig.key,
+                direction: sortConfig.direction,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            }
+        );
+    };
+
+    const handleSort = (key) => {
+        const direction =
+            sortConfig.key === key && sortConfig.direction === "asc"
+                ? "desc"
+                : "asc";
+        setSortConfig({ key, direction });
+        router.get(
+            "/role",
+            {
+                search: searchQuery,
+                page: currentPage,
+                perPage: itemsPerPage,
+                sort: key,
+                direction: direction,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            }
+        );
+    };
 
     const handleOpen = (jenispraktikum) => {
         setCurrentData(jenispraktikum);
@@ -94,8 +178,19 @@ export default function JenisPraktikumList({ jenisPraktikums }) {
 
     return (
         <DashboardLayout title="Kategori Praktikum">
-            <Head title="Kategori Praktikum" />
+            <Head title="Kategori Praktikum - Laboratorium Informatika ITATS" />
             <div className="relative container mx-auto p-4">
+                {/* Search input */}
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        placeholder="Search roles..."
+                        value={searchQuery}
+                        onChange={handleSearch}
+                        className="border rounded-md px-4 py-2 w-full max-w-xs"
+                    />
+                </div>
+
                 <Table
                     data={jenisPraktikums}
                     columns={columnsWithActions}
@@ -109,6 +204,12 @@ export default function JenisPraktikumList({ jenisPraktikums }) {
                             className="bg-pink-600 text-white"
                         />
                     }
+                    currentPage={currentPage}
+                    itemsPerPage={itemsPerPage}
+                    onPageChange={handlePageChange}
+                    onPerPageChange={handlePerPageChange}
+                    sortConfig={sortConfig}
+                    onSort={handleSort}
                 />
                 <Dialog
                     open={open}

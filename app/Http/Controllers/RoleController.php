@@ -37,7 +37,8 @@ class RoleController extends Controller
                 'perPage' => $perPage,
                 'sort' => $sortField,
                 'direction' => $sortDirection
-            ]
+            ],
+             'title' => 'Role'
         ]);
     }
     /**

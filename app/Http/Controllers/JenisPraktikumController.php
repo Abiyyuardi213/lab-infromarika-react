@@ -11,10 +11,33 @@ class JenisPraktikumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = JenisPraktikum::query();
+
+        // Handle search
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Handle sorting
+        $sortField = $request->input('sort', 'name');
+        $sortDirection = $request->input('direction', 'asc');
+        $query->orderBy($sortField, $sortDirection);
+
+        // Handle pagination
+        $perPage = $request->input('perPage', 10);
+        $jenisPraktikums = $query->paginate($perPage);
+
         return Inertia::render('JenisPraktikum/JenisPraktikumList', [
-            'jenisPraktikums' => JenisPraktikum::all(),
+            'jenisPraktikums' => $jenisPraktikums,
+            'filters' => [
+                'search' => $request->search,
+                'page' => $jenisPraktikums->currentPage(),
+                'perPage' => $perPage,
+                'sort' => $sortField,
+                'direction' => $sortDirection
+            ]
         ]);
     }
 
