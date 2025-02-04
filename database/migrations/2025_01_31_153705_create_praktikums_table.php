@@ -13,7 +13,7 @@
         {
             Schema::create('praktikums', function (Blueprint $table) {
                 $table->id();
-                $table->string('name')->unique();
+                $table->string('nama')->unique();
                 $table->foreignId('jenis_praktikum_id')->constrained('jenis_praktikums')->onDelete('restrict');
                 $table->foreignId('periode_praktikum_id')->constrained('periode_praktikums')->onDelete('restrict');
                 $table->timestamps();

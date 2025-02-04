@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Praktikan;
-use App\Models\Praktikum;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +14,7 @@ class PraktikanController extends Controller
     public function index()
     {
         return Inertia::render('Praktikan/PraktikanList', [
-            'praktikans' => Praktikan::with('praktikum')->get(),
+            'praktikans' => Praktikan::with('user')->get(), // Menggunakan relasi ke user sesuai foreign key
         ]);
     }
 
@@ -24,9 +23,7 @@ class PraktikanController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Praktikan/PraktikanCreate', [
-            'praktikums' => Praktikum::all(),
-        ]);
+        return Inertia::render('Praktikan/PraktikanCreate');
     }
 
     /**
@@ -35,15 +32,13 @@ class PraktikanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id', // Tambahkan validasi user_id
+            'nama_praktikan' => 'required|string|max:255',
             'npm' => 'required|string|max:20|unique:praktikans',
-            'jurusan' => 'required|string|max:255',
-            'angkatan' => 'required|integer|min:2000|max:' . date('Y'),
-            'praktikum_id' => 'nullable|exists:praktikums,id', // Tambahkan 'nullable'
-            'status' => 'required|boolean',
+            'no_hp' => 'nullable|string|max:15',
         ]);
 
-        Praktikan::create($request->all());
+        Praktikan::create($request->only(['user_id', 'nama_praktikan', 'npm', 'no_hp']));
 
         return redirect()->route('praktikan.index');
     }
@@ -54,7 +49,7 @@ class PraktikanController extends Controller
     public function show(Praktikan $praktikan)
     {
         return response()->json([
-            'praktikan' => $praktikan->load('praktikum')
+            'praktikan' => $praktikan->load('user')
         ]);
     }
     
@@ -64,8 +59,7 @@ class PraktikanController extends Controller
     public function edit(Praktikan $praktikan)
     {
         return Inertia::render('Praktikan/PraktikanUpdate', [
-            'praktikan' => $praktikan,
-            'praktikums' => Praktikum::all(),
+            'praktikan' => $praktikan
         ]);
     }
 
@@ -75,15 +69,13 @@ class PraktikanController extends Controller
     public function update(Request $request, Praktikan $praktikan)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
+            'nama_praktikan' => 'required|string|max:255',
             'npm' => 'required|string|max:20|unique:praktikans,npm,' . $praktikan->id,
-            'jurusan' => 'required|string|max:255',
-            'angkatan' => 'required|integer|min:2000|max:' . date('Y'),
-            'praktikum_id' => 'required|exists:praktikums,id',
-            'status' => 'required|boolean',
+            'no_hp' => 'nullable|string|max:15',
         ]);
 
-        $praktikan->update($request->all());
+        $praktikan->update($request->only(['user_id', 'nama_praktikan', 'npm', 'no_hp']));
 
         return redirect()->route('praktikan.index');
     }

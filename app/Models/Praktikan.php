@@ -9,10 +9,13 @@ class Praktikan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'npm', 'jurusan', 'angkatan', 'praktikum_id', 'status'];
+    protected $fillable = ['user_id', 'nama_praktikan', 'npm', 'no_hp'];
 
-    public function praktikum()
+    /**
+     * Relasi ke model User
+     */
+    public function user()
     {
-        return $this->belongsTo(Praktikum::class);
+        return $this->belongsTo(User::class);
     }
 }
