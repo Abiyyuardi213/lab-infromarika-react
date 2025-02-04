@@ -2,22 +2,20 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Praktikan>
- */
 class PraktikanFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = \App\Models\Praktikan::class;
+
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::inRandomOrder()->first()->id, // Ambil user_id secara acak
+            'nama_praktikan' => $this->faker->name(),
+            'npm' => $this->faker->unique()->numerify('##########'),
+            'no_hp' => $this->faker->phoneNumber(),
         ];
     }
 }
