@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import {
     Card,
@@ -68,14 +68,45 @@ const features = [
 const Home = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen((cur) => !cur);
-
+    const [npm, setNpm] = useState("");
+    const [password, setPassword] = useState("");
+    const [remember, setRemember] = useState(false); // ✅ Tambahkan ini
+    const [error, setError] = useState("");
     const [scrollY, setScrollY] = useState(0);
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+    // const handleLogin = () => {
+    //     if (npm.trim() === "" || password.trim() === "") {
+    //         setError("NPM dan Password wajib diisi.");
+    //         return;
+    //     }
+    //     // Simulasi login berhasil
+    //     setError("");
+    //     console.log("Login berhasil:", { npm, password });
+    //     handleOpen(); // Menutup dialog setelah login
+    // };
 
+    const handleLogin = () => {
+        router.post(
+            "/login",
+            {
+                npm,
+                password,
+                remember,
+            },
+            {
+                onError: (errors) => {
+                    setError(errors.npm || errors.password || "Login gagal.");
+                },
+                onSuccess: () => {
+                    setOpen(false); // Tutup dialog setelah login sukses
+                },
+            }
+        );
+    };
     return (
         <div className="min-h-screen bg-white">
             <Head title={`Laboratorium Informatika ITATS`} />
@@ -276,8 +307,6 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Login Dialog */}
             <Dialog
                 size="xs"
                 open={open}
@@ -295,19 +324,30 @@ const Home = () => {
                         <Input
                             label="NPM"
                             size="lg"
+                            value={npm}
+                            onChange={(e) => setNpm(e.target.value)}
                             className="!border-gray-300"
+                            error={!!error && npm.trim() === ""}
                         />
                         <Input
                             label="Password"
                             type="password"
                             size="lg"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="!border-gray-300"
+                            error={!!error && password.trim() === ""}
                         />
                         <Checkbox label="Remember Me" />
+                        {error && (
+                            <Typography className="text-red-500 text-sm">
+                                {error}
+                            </Typography>
+                        )}
                     </CardBody>
                     <CardFooter className="pt-0">
                         <Button
-                            onClick={handleOpen}
+                            onClick={handleLogin}
                             fullWidth
                             className="bg-gray-800 text-white hover:bg-gray-900"
                         >
@@ -319,7 +359,7 @@ const Home = () => {
                         >
                             Belum Punya Akun?{" "}
                             <a
-                                href="#signup"
+                                href="/register/praktikan"
                                 className="font-semibold text-gray-800 hover:text-gray-900"
                             >
                                 Daftar

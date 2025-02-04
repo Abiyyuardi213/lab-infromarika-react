@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Praktikan extends Model
 {
     use HasFactory;
+    protected $table = 'praktikans';
 
-    protected $fillable = ['nama', 'npm', 'jurusan', 'angkatan', 'praktikum_id', 'status'];
+    protected $fillable = ['user_id', 'nama_praktikan', 'npm', 'no_hp'];
 
     public function praktikum()
     {
         return $this->belongsTo(Praktikum::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
